@@ -5,5 +5,3 @@ How to start:
  1. Download or clone project
  2. Open CL within folder
  3. npm start
-
-image.png
