@@ -1,21 +1,21 @@
 name: CI
-on: [push]
+on: [push]  # Here I specified the action (push, pull)
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # In which machine the image will be created
     steps:
-        - name: Checkout
-          uses: actions/checkout@v3
+        - name: Checkout # The name of process
+          uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
             ref: Tests
-        - uses: actions/setup-node@v2
+        - uses: actions/setup-node@v2 # setup node
           with:
             node-version: 18
         - name: Install
-          run: npm install
+          run: npm install # Normal commands
         - name: Test
           run: npm run wdio
-        - uses: actions/upload-artifact@v3
+        - uses: actions/upload-artifact@v3 # This I use to create the file with reports
           with:
             name: allureReport
             path: ./allure-report
