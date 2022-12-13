@@ -4,6 +4,8 @@ jobs:
   build:
     runs-on: ubuntu-latest # In which machine the image will be created
     steps:
+        - name: Checkout 1# The name of process
+          uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
         - uses: actions/setup-node@v2 # setup node
           with:
             node-version: 18
