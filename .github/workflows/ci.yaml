@@ -23,13 +23,13 @@ jobs:
           with:
             name: allureReport
             path: ./allure-report
-    deploy:
-      runs-on: ubuntu-latest # In which machine the image will be created
-      steps:
-          - uses: actions/setup-node@v2 # setup node
-            with:
-              node-version: 18
-          - name: Install
-          run: npm install # Normal commands
-          - name: Deploy
-            run: npm run deploy
+  deploy:
+    runs-on: ubuntu-latest # In which machine the image will be created
+    steps:
+        - uses: actions/setup-node@v2 # setup node
+          with:
+            node-version: 18
+        - name: Install
+        run: npm install # Normal commands
+        - name: Deploy
+          run: npm run deploy
