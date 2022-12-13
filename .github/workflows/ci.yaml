@@ -1,16 +1,20 @@
-name: CI
+name: Build, Test and Deploy
 on: [push]  # Here I specified the action (push, pull)
 jobs:
   build:
     runs-on: ubuntu-latest # In which machine the image will be created
     steps:
+        - uses: actions/setup-node@v2 # setup node
+          with:
+            node-version: 18
+        - name: Install
+          run: npm install # Normal commands
+        - name: startLocal
+          run: npm run start
         - name: Checkout # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
             ref: Tests
-        - uses: actions/setup-node@v2 # setup node
-          with:
-            node-version: 18
         - name: Install
           run: npm install # Normal commands
         - name: Test
@@ -19,3 +23,8 @@ jobs:
           with:
             name: allureReport
             path: ./allure-report
+        - name: deploy
+          uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
+          with:
+            ref: main
+          run: npm run deploy
