@@ -16,7 +16,7 @@ jobs:
         - name: startLocal
           run: |
             npm run start &
-            wait-on http://localhost:3000
+            wait-on http://localhost:3000 &
         - name: Checkout # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
