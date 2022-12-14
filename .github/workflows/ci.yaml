@@ -1,42 +1,43 @@
 name: Build-Test-Deploy
-on: [push]  # Here I specified the action (push, pull)
+on: [push]
 jobs:
   build:
-    runs-on: ubuntu-latest # In which machine the image will be created
+    runs-on: ubuntu-latest
     steps:
-        - name: Checkout 1 # The name of process
-          uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
-        - uses: actions/setup-node@v2 # setup node
+        - name: Checkout 1
+          uses: actions/checkout@v3
+        - uses: actions/setup-node@v2
           with:
             node-version: 18
         - name: Install
-          run: npm install # Normal commands
+          run: npm install
         - name: startLocal
-          run: |
-            npm run start &
-            sleep 5
-        - name: Checkout # The name of process
-          uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
+          run: npm run start &
+        - name: Wait for the server to start
+          run: wait-on http://localhost:8080
+        - name: Checkout
+          uses: actions/checkout@v3
           with:
             ref: Tests
         - name: Install tests npm
-          run: npm install # Normal commands
+          run: npm install
         - name: Test
           run: npm run wdio
-        - uses: actions/upload-artifact@v3 # This I use to create the file with reports
+        - uses: actions/upload-artifact@v3
           with:
             name: allureReport
             path: ./allure-report
         - name: Stop local server
-          run: kill $(ps aux | grep '[n]pm' | awk '{print $2}')
+          run: kill $(lsof -i :8080 -t)
   deploy:
     needs: build
-    runs-on: ubuntu-latest # In which machine the image will be created
+    runs-on: ubuntu-latest
     steps:
-        - uses: actions/setup-node@v2 # setup node
+        - uses: actions/setup-node@v2
           with:
             node-version: 18
         - name: Install
-          run: npm install # Normal commands 6
+          run: npm install
         - name: Deploy
           run: npm run deploy
+
