@@ -4,7 +4,7 @@ jobs:
   build:
     runs-on: ubuntu-latest # In which machine the image will be created
     steps:
-        - name: Checkout 1 # The name of process
+        - name: Checkout React # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
         - uses: actions/setup-node@v2 # setup node
           with:
@@ -17,9 +17,7 @@ jobs:
           run: |
             npm run start &
             sleep 5
-        - name: Wait for the server to start
-          run: wait-on http://localhost:3000/React_employees_app
-        - name: Checkout # The name of process
+        - name: Checkout Tests # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
             ref: Tests
