@@ -1,6 +1,6 @@
 const HomePage = require('../pageobjects/home.page')
 
-describe('My eployee application', () => {
+describe('My employee application', () => {
     it('should add new employee', async () => {
         await HomePage.open()
         await browser.pause(5000)
