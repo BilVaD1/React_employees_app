@@ -10,7 +10,9 @@ jobs:
           with:
             node-version: 18
         - name: Install
-          run: npm install
+          run: |
+            npm install
+            npm install -g wait-on
         - name: startLocal
           run: npm run start &
         - name: Wait for the server to start
