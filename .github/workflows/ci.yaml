@@ -2,7 +2,7 @@ name: Build-Test-Deploy
 on: [push]  # Here I specified the action (push, pull)
 jobs:
   build:
-    runs-on: macOS-latest # In which machine the image will be created
+    runs-on: ubuntu-latest # In which machine the image will be created
     steps:
         - name: Checkout 1 # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
