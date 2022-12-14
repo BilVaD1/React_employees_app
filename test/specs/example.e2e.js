@@ -1,7 +1,7 @@
 const HomePage = require('../pageobjects/home.page')
 
-describe('My Login application', () => {
-    it('should login with valid credentials', async () => {
+describe('My eployee application', () => {
+    it('should add new employee', async () => {
         await HomePage.open()
         await browser.pause(5000)
         await HomePage.addEmployee('Grand', '1300')
