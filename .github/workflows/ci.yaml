@@ -16,7 +16,7 @@ jobs:
         - name: startLocal
           run: |
             npm run start &
-            sleep 10
+            sleep 5
         - name: Checkout Tests # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
