@@ -13,11 +13,6 @@ jobs:
           run: npm install # Normal commands
         - name: startLocal
           run: npm run --start
-        - name: Install the Actions Toolkit
-          run: npm install @actions/toolkit
-        - name: Wait for YAML file
-          run: |
-            wait-on tcp:localhost:3000
         - name: Checkout # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
