@@ -37,6 +37,6 @@ jobs:
           with:
             node-version: 18
         - name: Install
-          run: npm install # Normal commands 2
+          run: npm install # Normal commands 3
         - name: Deploy
           run: npm run deploy
