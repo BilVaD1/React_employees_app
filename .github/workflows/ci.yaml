@@ -11,6 +11,7 @@ jobs:
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
             ref: main
+            persist-credentials: true
         - name: Install
           run: |
             npm install
@@ -22,7 +23,7 @@ jobs:
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
             ref: Tests
-            path: repo-2
+            persist-credentials: true
         - name: Install tests npm
           run: npm install # Normal commands
         - name: Test
