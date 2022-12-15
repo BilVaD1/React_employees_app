@@ -9,6 +9,8 @@ jobs:
             node-version: 18
         - name: Checkout React # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
+          with:
+            path: repo-1
         - name: Install
           run: |
             npm install
@@ -17,14 +19,11 @@ jobs:
           run: |
             npm run start &
             sleep 6
-  tests:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
         - name: Checkout Tests # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
             ref: Tests
+            path: repo-2
         - name: Install tests npm
           run: npm install # Normal commands
         - name: Test
@@ -36,7 +35,7 @@ jobs:
         - name: Stop local server
           run: kill $(ps aux | grep '[n]pm' | awk '{print $2}')
   deploy:
-    needs: tests
+    needs: build
     runs-on: ubuntu-latest # In which machine the image will be created
     steps:
         - uses: actions/setup-node@v2 # setup node
