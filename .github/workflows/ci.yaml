@@ -17,6 +17,9 @@ jobs:
           run: |
             npm run start &
             sleep 6
+  tests:
+    needs: build
+    steps:
         - name: Checkout Tests # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
@@ -32,7 +35,7 @@ jobs:
         - name: Stop local server
           run: kill $(ps aux | grep '[n]pm' | awk '{print $2}')
   deploy:
-    needs: build
+    needs: tests
     runs-on: ubuntu-latest # In which machine the image will be created
     steps:
         - uses: actions/setup-node@v2 # setup node
