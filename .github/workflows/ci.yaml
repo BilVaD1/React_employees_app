@@ -8,7 +8,7 @@ jobs:
       with:
         ref: main
     - name: Build in Docker
-      uses: actions/docker/run@v1
+    - uses: addnab/docker-run-action@v3
       with:
         image: node:18.x
         entrypoint: bash
