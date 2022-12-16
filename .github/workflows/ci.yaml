@@ -11,20 +11,22 @@ jobs:
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
             ref: main
-            persist-credentials: true
-        - name: Install
+        - name: Install React dependencies
           run: |
             npm install
         - name: startLocal
-          run: |
-            npm run start &
-            sleep 6
+          run: npm run start
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/setup-node@v2 # setup node
+          with:
+            node-version: 18
         - name: Checkout Tests # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
             ref: Tests
-            persist-credentials: true
-        - name: Install tests npm
+        - name: Install tests dependencies
           run: npm install # Normal commands
         - name: Test
           run: npm run wdio
@@ -35,7 +37,7 @@ jobs:
         - name: Stop local server
           run: kill $(ps aux | grep '[n]pm' | awk '{print $2}')
   deploy:
-    needs: build
+    needs: tests
     runs-on: ubuntu-latest # In which machine the image will be created
     steps:
         - uses: actions/setup-node@v2 # setup node
