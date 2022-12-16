@@ -2,21 +2,19 @@ name: Build-Test-Deploy
 on: [push]  # Here I specified the action (push, pull)
 jobs:
   build:
-    runs-on: ubuntu-latest # In which machine the image will be created
+    runs-on: ubuntu-latest
     steps:
-        - uses: actions/setup-node@v2 # setup node
-          with:
-            node-version: 18
-        - name: Checkout React # The name of process
-          uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
-          with:
-            ref: main
-        - name: Install React dependencies
-          run: |
-            npm install
-        - name: startLocal
-          run: npm run start
+    - uses: actions/checkout@v2
+      with:
+        ref: main
+    - name: Build in Docker
+      uses: actions/docker/run@v1
+      with:
+        image: node:18.x
+        entrypoint: bash
+        args: -c "npm install && npm run start"
   tests:
+    needs: build
     runs-on: ubuntu-latest
     steps:
         - uses: actions/setup-node@v2 # setup node
