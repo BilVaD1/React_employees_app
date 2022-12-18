@@ -36,7 +36,9 @@ jobs:
           run: |
             cd repository-b
             npm run wdio
-        - uses: actions/upload-artifact@v3
+        - name: Archive Test Results
+          if: always()
+          uses: actions/upload-artifact@v3
           with:
             name: allureReport
             path: repository-b/allure-report
