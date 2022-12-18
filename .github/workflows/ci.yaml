@@ -36,7 +36,7 @@ jobs:
           run: |
             cd repository-b
             npm run wdio
-        - uses: actions/upload-artifact@v3 # This I use to create the file with reports
+        - uses: actions/upload-artifact@v3
           with:
             name: allureReport
             path: repository-b/allure-report
