@@ -1,7 +1,7 @@
 name: Build-Test-Deploy
 on: [push]  # Here I specified the action (push, pull)
 jobs:
-  build:
+  build-tests:
     runs-on: ubuntu-latest # In which machine the image will be created
     steps:
         - name: Checkout React # The name of process
@@ -37,7 +37,7 @@ jobs:
             cd repository-b
             npm run wdio
         - name: Archive Test Results
-          if: always()
+          if: always() # That means the report will be created every time, whether the Tests step is successful or failed.
           uses: actions/upload-artifact@v3
           with:
             name: allureReport
@@ -48,10 +48,12 @@ jobs:
     needs: build
     runs-on: ubuntu-latest # In which machine the image will be created
     steps:
+        - name: Checkout React # The name of process
+          uses: actions/checkout@v3
         - uses: actions/setup-node@v2 # setup node
           with:
             node-version: 18
-        - name: Install
-          run: npm install # Normal commands 6
-        - name: Deploy
-          run: npm run deploy
+        #- name: Install
+        #  run: npm install # Normal commands 6
+        #- name: Deploy
+        #  run: npm run deploy
