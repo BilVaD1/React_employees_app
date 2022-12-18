@@ -31,7 +31,7 @@ jobs:
           run: |
             cd repository-b
             npm install
-        - name: Test
+        - name: Tests
           run: npm run wdio
         - uses: actions/upload-artifact@v3 # This I use to create the file with reports
           with:
