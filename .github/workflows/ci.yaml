@@ -5,7 +5,17 @@ jobs:
     runs-on: ubuntu-latest # In which machine the image will be created
     steps:
         - name: Checkout React # The name of process
-          uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
+          uses: actions/checkout@v3  # The name of actions(here I specified the branch with React(main))
+          with:
+            repository: BilVaD1/React_employees_app
+            path: repository-a # This is the path to the folder on the virtual machine to the folder with main branch
+            ref: main # Name of repository
+        - name: Checkout Tests # The name of process
+          uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests(Tests))
+          with:
+            repository: BilVaD1/React_employees_app
+            path: repository-b # This is the path to the folder on the virtual machine to the folder with Tests branch
+            ref: Tests # Name of repository
         - uses: actions/setup-node@v2 # setup node
           with:
             node-version: 18
@@ -18,15 +28,17 @@ jobs:
             cd repository-a
             npm run start &
             sleep 6
-        - name: Checkout Tests # The name of process
-          uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
-          with:
-            ref: Tests
-        - name: Install tests npm
-          run: npm install # Normal commands
-        - name: Test
-          run: npm run wdio
-        - uses: actions/upload-artifact@v3 # This I use to create the file with reports
+        - name: Install tests dependencies from Tests branch
+          run: |
+            cd repository-b
+            npm install
+        - name: Tests
+          run: |
+            cd repository-b
+            npm run wdio
+        - name: Archive Test Results
+          if: always()
+          uses: actions/upload-artifact@v3
           with:
             name: allureReport
             path: repository-b/allure-report
