@@ -36,10 +36,11 @@ jobs:
           run: |
             cd repository-b
             npm run wdio
+          continue-on-error: true
         - uses: actions/upload-artifact@v3 # This I use to create the file with reports
           with:
             name: allureReport
-            path: ./allure-report
+            path: repository-b/allure-report
         - name: Stop local server
           run: kill $(ps aux | grep '[n]pm' | awk '{print $2}')
   deploy:
