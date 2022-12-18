@@ -36,7 +36,6 @@ jobs:
           run: |
             cd repository-b
             npm run wdio
-          continue-on-error: true
         - uses: actions/upload-artifact@v3 # This I use to create the file with reports
           with:
             name: allureReport
