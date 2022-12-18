@@ -1,4 +1,0 @@
-{
-  "using": "css selector",
-  "value": "input.form-control.new-post-label:nth-child(2)"
-}

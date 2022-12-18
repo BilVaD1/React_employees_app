@@ -15,5 +15,8 @@
         "allure_delete_results": "del allure-results",
         "allure_update_results": "allure generate --clean",
         "allure_open": "allure open"
+    },
+    "dependencies": {
+        "allure-commandline": "^2.20.1"
     }
 }
