@@ -2,32 +2,35 @@ name: Build-Test-Deploy
 on: [push]  # Here I specified the action (push, pull)
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # In which machine the image will be created
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: main
-    - uses: addnab/docker-run-action@v3
-      with:
-        image: node:18.x
-        shell: bash
-        run: |
-          npm i
-          npm run start
-  tests:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-        - uses: actions/setup-node@v2 # setup node
+        - name: Checkout React # The name of process
+          uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
-            node-version: 18
+            repository: BilVaD1/React_employees_app
+            path: repository-a
+            ref: main
         - name: Checkout Tests # The name of process
           uses: actions/checkout@v3  # The name of actions(here I specified the branch with tests)
           with:
+            repository: BilVaD1/React_employees_app
+            path: repository-b
             ref: Tests
-        - name: Install tests dependencies
+        - uses: actions/setup-node@v2 # setup node
+          with:
+            node-version: 18
+        - name: Install from main
           run: |
-            sleep 60
+            cd repository-a
+            npm install
+        - name: startLocal in main
+          run: |
+            npm run start &
+            sleep 6
+        - name: tests
+        - name: Install tests dependencies from Tests branch
+          run: |
+            cd repository-b
             npm install
         - name: Test
           run: npm run wdio
@@ -38,7 +41,7 @@ jobs:
         - name: Stop local server
           run: kill $(ps aux | grep '[n]pm' | awk '{print $2}')
   deploy:
-    needs: tests
+    needs: build
     runs-on: ubuntu-latest # In which machine the image will be created
     steps:
         - uses: actions/setup-node@v2 # setup node
