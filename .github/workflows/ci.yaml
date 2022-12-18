@@ -25,6 +25,7 @@ jobs:
             npm install
         - name: startLocal in main
           run: |
+            cd repository-a
             npm run start &
             sleep 6
         - name: Install tests dependencies from Tests branch
@@ -32,7 +33,9 @@ jobs:
             cd repository-b
             npm install
         - name: Tests
-          run: npm run wdio
+          run: |
+            cd repository-b
+            npm run wdio
         - uses: actions/upload-artifact@v3 # This I use to create the file with reports
           with:
             name: allureReport
