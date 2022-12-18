@@ -27,7 +27,6 @@ jobs:
           run: |
             npm run start &
             sleep 6
-        - name: tests
         - name: Install tests dependencies from Tests branch
           run: |
             cd repository-b
