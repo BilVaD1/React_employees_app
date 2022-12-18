@@ -45,7 +45,7 @@ jobs:
         - name: Stop local server
           run: kill $(ps aux | grep '[n]pm' | awk '{print $2}')
   deploy:
-    needs: build
+    needs: build-tests
     runs-on: ubuntu-latest # In which machine the image will be created
     steps:
         - name: Checkout React # The name of process
