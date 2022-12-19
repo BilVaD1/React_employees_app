@@ -27,7 +27,7 @@ jobs:
           run: |
             cd repository-a
             npm run start &
-            sleep 6
+            sleep 5
         - name: Install tests dependencies from Tests branch
           run: |
             cd repository-b
