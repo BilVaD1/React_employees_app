@@ -12,7 +12,9 @@ class HomePage extends Page {
     }
 
     async getDeleteBtn (){
-        return await $('button.btn-trash.btn-sm')
+        const del = await $('button.btn-trash.btn-sm')
+        await del.scrollIntoView()
+        return await del
     }
 
     async getAllEmployees (){
@@ -82,7 +84,9 @@ class HomePage extends Page {
                 const name = await employee.$('span').getText()
                 switch(args == name){
                     case true:
-                        await employee.$('i.fas.fa-cookie').click()
+                        const cookieIcon = await employee.$('i.fas.fa-cookie')
+                        await cookieIcon.scrollIntoView()
+                        await cookieIcon.click()
                         continue first
                 }
             }

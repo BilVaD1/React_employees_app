@@ -1,4 +1,0 @@
-{
-  "using": "css selector",
-  "value": ".app-info h2:nth-child(3)"
-}

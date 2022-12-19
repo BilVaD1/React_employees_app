@@ -4,6 +4,7 @@ describe('My employee application', () => {
     
     beforeEach(async function(){
         await HomePage.open()
+        await browser.setWindowSize(1000, 1000)
       })
 
 
